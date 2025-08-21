@@ -9,6 +9,7 @@ import {
 import { Menu } from "lucide-react";
 import { Link, NavLink } from "react-router";
 import Logo from "../branding/logo/logo";
+import RightNav from "./right-nav";
 
 export default function MainNav() {
   const navList = [
@@ -23,10 +24,6 @@ export default function MainNav() {
     {
       name: "Contact",
       link: "/contact",
-    },
-    {
-      name: "Tracking",
-      link: "/tracking",
     },
   ];
 
@@ -45,7 +42,12 @@ export default function MainNav() {
               </li>
             ))}
           </ul>
-          <ModeToggle />
+          {/* Right Nav start */}
+          <div className="flex items-center gap-6">
+            <RightNav />
+            <ModeToggle />
+          </div>
+          {/* Right Nav end */}
         </div>
       </div>
       {/* Desktop navigation end  */}
@@ -62,7 +64,6 @@ export default function MainNav() {
                 <Menu />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuSeparator />
                 {navList.map((item, idx) => (
                   <DropdownMenuItem className="mbl-active">
                     <NavLink key={idx} to={`${item.link}`}>
@@ -70,6 +71,9 @@ export default function MainNav() {
                     </NavLink>
                   </DropdownMenuItem>
                 ))}
+                <DropdownMenuSeparator />
+
+                <RightNav />
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

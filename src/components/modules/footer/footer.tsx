@@ -70,7 +70,7 @@ export default function Footer() {
       </div>
       <div className="bg-primary text-center">
         <p className="py-3 mt">
-          &copy;2025 | "All rights reserved WS-Parselly | Developed by:{" "}
+          &copy;2025 | All rights reserved WS-Parselly | Developed by:{" "}
           <a
             href="http://wahednur.com"
             target="_blank"
