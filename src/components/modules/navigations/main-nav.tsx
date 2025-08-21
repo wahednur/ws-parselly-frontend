@@ -31,11 +31,11 @@ export default function MainNav() {
     <>
       {/* Desktop navigation start  */}
       <div className="bg-white/10 backdrop-blur-sm py-3 dek-nav border-b border-primary/20 drop-shadow-md sticky">
-        <div className="container flex justify-between">
+        <div className="container flex justify-between gap-8">
           <Link className="text-xl font-bold text-blue-600" to="/">
             <Logo lh="h-10" />
           </Link>
-          <ul className="flex items-center">
+          <ul className="flex items-center flex-1">
             {navList.map((item, idx) => (
               <li key={idx}>
                 <NavLink to={`${item.link}`}>{item.name}</NavLink>
