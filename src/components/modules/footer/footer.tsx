@@ -11,7 +11,7 @@ import Logo from "../branding/logo/logo";
 
 export default function Footer() {
   return (
-    <div className="bg-white/20 pt backdrop-blur-lg">
+    <div className="bg-white/20 pt backdrop-blur-lg mt">
       <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Logo & Address section start  */}
         <div>

@@ -122,7 +122,7 @@
 }
 
 .vh {
-  @apply min-h-[calc(100vh-385px)];
+  @apply min-h-[calc(100vh-433px)];
 }
 .dek-nav {
   @apply hidden lg:block;
@@ -149,3 +149,27 @@
 .fo-social a {
   @apply p-3 bg-primary text-white hover:bg-black  duration-300 rounded-sm;
 }
+
+/* Timeline css start  */
+.timeline-container {
+  @apply grid grid-cols-4 gap-6 w-full max-w-2xl;
+}
+.circle {
+  @apply w-10 h-10 flex justify-center items-center rounded-full bg-gray-300;
+}
+.timeline-step {
+  @apply relative;
+}
+.line {
+  @apply w-full h-0.5 bg-gray-300 absolute top-5 left-10;
+}
+.label {
+  @apply absolute w-[100px] left-1/2 -translate-x-full top-12 flex justify-center items-center;
+}
+
+.label.active,
+.line.active,
+.circle.active {
+  @apply bg-primary;
+}
+/* Timeline css end  */
