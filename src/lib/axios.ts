@@ -1,7 +1,8 @@
+import config from "@/config";
 import axios, { type AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "url",
+  baseURL: config.baseUrl,
   withCredentials: true,
 });
 
