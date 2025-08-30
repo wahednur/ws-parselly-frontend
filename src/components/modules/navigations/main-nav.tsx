@@ -45,7 +45,6 @@ export default function MainNav() {
           {/* Right Nav start */}
           <div className="flex items-center gap-6">
             <RightNav />
-            <ModeToggle />
           </div>
           {/* Right Nav end */}
         </div>

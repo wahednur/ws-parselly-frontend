@@ -1,9 +1,11 @@
+import DashLayout from "@/layouts/DashLayout";
 import AboutPage from "@/pages/about/about";
 import LoginPage from "@/pages/auth/Login";
 import SignUpPage from "@/pages/auth/sign-up";
 import ContactPage from "@/pages/contact-us/contact-us";
 import HomePage from "@/pages/home/HomePage";
 import TrackingPage from "@/pages/tracking/tracting";
+import VerifyPage from "@/pages/verify/verify";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "./../layouts/RootLayout";
 import ErrorPage from "./../pages/error/ErrorPage";
@@ -37,6 +39,20 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: SignUpPage,
+      },
+      {
+        path: "/verify",
+        Component: VerifyPage,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashLayout />,
+    children: [
+      {
+        index: true,
+        element: <p>Dash staies</p>,
       },
     ],
   },
