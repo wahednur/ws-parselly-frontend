@@ -7,7 +7,7 @@ import { Link } from "react-router";
 import ProfileNav from "./profile-nav";
 
 export default function RightNav() {
-  const { data } = useGetMeQuery(undefined);
+  const { data } = useGetMeQuery(undefined, {});
   const user = data?.data;
 
   return (

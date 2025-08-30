@@ -40,7 +40,7 @@ const FormSchema = z.object({
 export default function VerifyPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [email] = useState(location.state);
+  const email = location.state as string | undefined;
   const [confirmed, setConfirmed] = useState(false);
   const [time, setTime] = useState(10);
 
@@ -55,9 +55,8 @@ export default function VerifyPage() {
   });
 
   useEffect(() => {
-    if (!email || !confirmed) {
+    if (!email) {
       navigate("/");
-      return;
     }
     const timeId = setInterval(() => {
       setTime((prev) => (prev > 0 ? prev - 1 : 0));

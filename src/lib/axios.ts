@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config as AxiosRequestConfig;
     console.log("Original request", originalRequest);
     if (
-      error.response.status === 500 &&
+      error.response.status === 401 &&
       error.response.data.message === "jwt expired"
     ) {
       console.log("Your token expired");

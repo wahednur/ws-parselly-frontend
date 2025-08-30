@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 import SocialLogin from "./social-login";
@@ -48,6 +48,8 @@ export default function SignUpPage({
     },
   });
   const [register] = useRegisterMutation();
+
+  const navigate = useNavigate();
   const onSubmit = async (data: z.infer<typeof registerZodSchema>) => {
     const userInfo = {
       businessName: data.businessName,
@@ -68,6 +70,7 @@ export default function SignUpPage({
           account was successfully created. Please verify it now.
         </p>
       );
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/components/modules/branding/logo/logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +20,14 @@ import {
 import { Input } from "@/components/ui/input";
 
 import Password from "@/components/ui/password";
+import { useUser } from "@/context/UserContext";
 import { cn } from "@/lib/utils";
-import { useUserLoginMutation } from "@/redux/features/auth/auth.api";
+import {
+  useGetMeQuery,
+  useUserLoginMutation,
+} from "@/redux/features/auth/auth.api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -46,6 +52,9 @@ export default function LoginPage({
     },
   });
   const [userLogin] = useUserLoginMutation();
+  const { data } = useGetMeQuery(undefined);
+  const { user } = useUser();
+  console.log("Login get me", data);
   const onSubmit = async (data: z.infer<typeof loginZodSchema>) => {
     const userInfo = {
       email: data.email,
@@ -61,16 +70,27 @@ export default function LoginPage({
           You successfully login
         </p>
       );
-      navigate("/");
-    } catch (error) {
-      if (typeof error === "object" && error !== null && "status" in error) {
-        if (error.status === 401) {
+    } catch (error: any) {
+      if (error?.status === 401) {
+        const errorMessage = error?.data?.message || "";
+
+        if (errorMessage.includes("User not verified")) {
           navigate("/verify", { state: data.email });
+        } else {
+          toast.error("Invalid email or password");
         }
+      } else {
+        toast.error("Something went wrong. Please try again.");
       }
     }
     console.log("User info", userInfo);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
   return (
     <div className="container flex vh flex-col justify-center items-center">
       <div

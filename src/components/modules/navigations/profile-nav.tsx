@@ -14,10 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
+import Logout from "../buttons/logout";
 
 export default function ProfileNav() {
-  const { data } = useGetMeQuery(undefined);
-  const user = data?.data;
+  const { data } = useGetMeQuery(undefined) || [];
+  const user = data?.data || [];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -63,7 +65,7 @@ export default function ProfileNav() {
         <DropdownMenuItem disabled>API</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Log out
+          <Logout />
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

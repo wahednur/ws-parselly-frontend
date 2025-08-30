@@ -37,12 +37,14 @@ export const authApi = baseApi.injectEndpoints({
         url: "/user/me",
         method: "GET",
       }),
+      providesTags: ["user"],
     }),
-    logOut: builder.mutation({
+    logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
       }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
@@ -53,4 +55,5 @@ export const {
   useSendOTPMutation,
   useVerifyOTPMutation,
   useGetMeQuery,
+  useLogoutMutation,
 } = authApi;
