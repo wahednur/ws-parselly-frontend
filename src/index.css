@@ -146,6 +146,9 @@
 .pt {
   @apply pt-10 lg:pt-12 xl:pt-14;
 }
+.py {
+  @apply py-10 lg:py-12 xl:py-14;
+}
 .fo-social a {
   @apply p-3 bg-primary text-white hover:bg-black  duration-300 rounded-sm;
 }

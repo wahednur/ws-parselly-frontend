@@ -16,11 +16,9 @@ export default function RightNav() {
         <LocateFixedIcon />
         Track Parcel
       </Link>
+      <ModeToggle />
       {user ? (
-        <>
-          <ModeToggle />
-          {user && <ProfileNav />}
-        </>
+        <>{user && <ProfileNav />}</>
       ) : (
         <>
           <Button variant="outline">
