@@ -6,8 +6,8 @@ import { Search } from "lucide-react";
 
 export default function TrackingPage() {
   return (
-    <div className="flex flex-col vh justify-center items-center">
-      <Card className="w-full md:w-9/12 py-14 bg-primary/10 dark:bg-white/20">
+    <div className="flex flex-col mt justify-center items-center">
+      <Card className="w-full md:w-9/12 py-14 bg-primary/10 dark:bg-white/20 mt">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl lg:text-5xl">
             Track Your Order

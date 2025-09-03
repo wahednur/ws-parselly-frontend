@@ -30,7 +30,7 @@ export default function MainNav() {
   return (
     <>
       {/* Desktop navigation start  */}
-      <div className="bg-white/10 backdrop-blur-sm py-3 dek-nav border-b border-primary/20 drop-shadow-md fixed top-0 w-full">
+      <div className="bg-white/10 backdrop-blur-sm py-3 dek-nav border-b border-primary/20 drop-shadow-md fixed top-0 w-full z-50">
         <div className="container flex justify-between gap-8">
           <Link className="text-xl font-bold text-blue-600" to="/">
             <Logo lh="h-10" />
