@@ -1,69 +1,150 @@
-# React + TypeScript + Vite
+# 📦 WS-Parselly - Parcel Delivery System API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WS-Parselly is a secure, role-based backend API for managing parcel deliveries, inspired by Pathao Courier and Sundarban. The system supports sender/receiver registration, parcel tracking, delivery status updates, and admin features.
 
-Currently, two official plugins are available:
+## 🔧 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Backend:** Node.js, Express.js, TypeScript
+- **Database:** MongoDB with Mongoose
+- **Authentication:** JWT (JSON Web Tokens)
+- **Validation:** Zod
+- **Authorization:** Role-based middleware
+- **Error Handling:** Centralized global error handler
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📌 Features
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ✅ Authentication & User Management
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- User registration with role: `sender`, `receiver`, `admin`
+- JWT-based secure login
+- Google & credentials-based login
+- Block/Unblock users by admin
+- Password hashing and sensitive data protection
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 📦 Parcel Management
+
+- CRUD operations for parcels
+- Parcel tracking with `trackingEvents[]`
+- Status update: Pending, Approved, Dispatched, Delivered, Canceled
+- Assign deliveryman to parcel
+- Calculate delivery charges based on weight & distance
+
+### 🛡️ Roles & Access Control
+
+- **Sender:** Can create and track parcels
+- **Receiver:** Can view parcel details
+- **Admin:** Can approve, assign, and manage parcels and users
+
+---
+
+## 🧪 API Endpoints
+
+### Auth Routes
+
+```http
+POST /api/auth/register         # Register user
+POST /api/auth/login            # Login
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### User Routes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+GET /api/users/me               # Get current user
+PATCH /api/admin/users/block/:id   # Block/unblock user
+
+```
+
+### Parcel Routes
+
+```
+POST   /api/parcels             # Create a parcel
+GET    /api/parcels             # Get all parcels (filter by role)
+GET    /api/parcels/:id         # Parcel details
+PATCH  /api/admin/parcels/status/:id  # Update parcel status
+PATCH  /api/admin/parcels/assign/:id  # Assign deliveryman
+
+```
+
+### 🗂️ Database Models
+
+```
+{
+  name: string;
+  email: string;
+  password?: string;
+  phone?: string;
+  role: 'admin' | 'sender' | 'receiver';
+  isActive: 'active' | 'inactive' | 'blocked';
+  auths: [{ provider: 'google' | 'credentials', providerId: string }]
+}
+```
+
+### Parcel
+
+```
+{
+  sender: ObjectId;
+  receiver: ObjectId;
+  status: 'pending' | 'approved' | 'dispatched' | 'delivered' | 'cancelled';
+  trackingEvents: [
+    {
+      status: string;
+      timestamp: Date;
+      updatedBy: ObjectId;
+    }
+  ];
+  deliveryCharge: number;
+  deliveryAddress: string;
+}
+
+```
+
+### .env
+
+```
+# server port decleration
+PORT=5000
+# Mongodb Uri
+MDB_URI=mongodb+srv:your_mongo_DB_URI
+# Project Mode
+NODE_ENV=development
+
+#JWT
+JWT_SECRET =your_jwt_secret
+JWT_EXP_IN=30d
+JWT_REFRESH_SECRET=JWT_SECRET
+JWT_REFRESH_EXP_IN=30d
+
+
+#BCRYPT
+BCRYPT_SALT=10
+
+# Frontend URL
+FRONTEND_URL=http://localhost:5173
+
+
+# Google Login
+GOOGLE_CLIENT_ID=google_client_id
+GOOGLE_CLIENT_SECRET=google_client_id_secret
+GOOGLE_CALLBACK_URL=google_callback_url
+```
+
+## Postman Collection
+
+Click below to download the Postman collection:
+
+👉 [Download postman.json](https://raw.githubusercontent.com/wahednur/ws-parselly/main/postman.json)
+
+## 👨‍💻 Author
+
+**Abdul Wahed Nur**  
+MERN Stack Developer
+✉️: <wahednur@gmail.com>
+📞: +88 01917839303
+[Portfolio](https://wahednur.vercel.app) | [LinkedIn](https://www.linkedin.com/in/wahednur/)
+
+---
+
+Let me know if you want to add API documentation (like Swagger/OpenAPI), deployment instructions (e.g., Docker), or frontend-related details .
